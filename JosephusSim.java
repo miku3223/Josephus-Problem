@@ -11,13 +11,30 @@ public class JosephusSim {
       try {
          // load names from the file in order, generating a singly linked list of PersonNodes
          Scanner file = new Scanner(new File(fileName));
-         
-         // make the ring circular by attaching last node's next to front
-         
-         // remember the last node as the one in front of the next to get eliminated
-         
-         // generate, print, and save the random elimination count
+         PersonNode last = null;
 
+         while (file.hasNextLine()) {
+            String name = file.nextLine().trim();
+            if (!name.isEmpty()) {
+               PersonNode newNode = new PersonNode(name);
+               if (circle == null) {
+                  circle = newNode;
+               } else {
+                  last.next = newNode;
+               }
+               last = newNode;
+               size++;
+            }
+         }
+         // make the ring circular by attaching last node's next to front
+         if (last != null) {
+            last.next = circle;
+         }
+         // remember the last node as the one in front of the next to get eliminated
+         track = last;
+         // generate, print, and save the random elimination count
+         eliminationCount = (int)(Math.random() * (size / 2)) + 1;
+         System.out.println("=== Elimination count is " + eliminationCount + " ===");
       } catch(FileNotFoundException e) {
          System.out.println("Something went wrong with " + fileName);
       }
@@ -25,6 +42,15 @@ public class JosephusSim {
    
    // optional helper method for constructing the circle
    private void add(String val) {
+      PersonNode newNode = new PersonNode(val);
+      if (circle == null) {
+         circle = newNode;
+         track = newNode;
+      } else {
+         track.next = newNode;
+         track = newNode;
+      }
+      size++;
    }
    
    public void eliminate() {
