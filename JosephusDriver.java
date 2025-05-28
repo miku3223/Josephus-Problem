@@ -17,3 +17,13 @@ public class JosephusDriver {
    }
 
 }
+
+/*
+# PROGRAM OUTPUT
+
+=== Elimination count is 4 ===
+
+
+Continue elimination? <press enter>
+
+*/
