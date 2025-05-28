@@ -54,17 +54,26 @@ public class JosephusSim {
    }
    
    public void eliminate() {
+      if (isOver()) return;
       // count to the elimination count
-      
+      for (int i = 1; i < eliminationCount; i++) {
+         track = track.next;
+      }
       // print who will be eliminated
-      
+      PersonNode toEliminate = track.next;
+      System.out.println(toEliminate.name + " eliminated!");
       // eliminate the person and update "front" of the circle and size
-
+      if (toEliminate == circle) {
+         circle = toEliminate.next;
+      }
+      track.next = toEliminate.next;
+      size--;
+      track = track.next;
    }
    
    public boolean isOver() {
       // check if there's only one person left in the circle
-      return false;
+      return size <= 1;
    }
    
    public String toString() {
