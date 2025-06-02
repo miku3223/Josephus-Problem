@@ -68,7 +68,13 @@ public class JosephusSim {
       }
       track.next = toEliminate.next;
       size--;
-      track = track.next;
+      // Make the person after the eliminated one the new front
+      circle = track.next;
+      // Update track to be the node before the new front (for next elimination)
+      track = circle;
+      for (int i = 1; i < size; i++) {
+         track = track.next;
+      }
    }
    
    public boolean isOver() {
